@@ -43,6 +43,7 @@ class Main {
 	static int width;
 	static boolean[] visited;
 	static ArrayList<CCTV> comb;
+	static int cctvNum;
 
 	// 모든 경우 따져서 0의 개수가 최소가 되는 경우 구하기
 	public static void main(String[] args) throws IOException{
@@ -72,32 +73,28 @@ class Main {
 			}
 		}
 
-		int cctvNum = arrList.size();
+		cctvNum = arrList.size();
 		visited = new boolean[cctvNum];
 
 		// dir을 하나씩 바꿔가면서 해야함
-		dfs(arrList, 0, cctvNum, cctvNum);
+		dfs(0);
+
+		System.out.println(Collections.min(sumList));
 	}
 
-	static void dfs(ArrayList<CCTV> arrList, int start, int N, int r){
-		int k = 0;
-
-		if(r==0){
-			start(arrList, k, N);
+	static void dfs(int r){
+		if(r==cctvNum){
+			start();
+			return;
 		}
-		else{
-			for(int i=start; i<N; i++){
-				visited[i] = true;
-				dfs(arrList, i+1, N, r-1);
-				arrList.get(start).dir +=1;
-				visited[i] = false;
-				k++;
-			}
+		for(int i=0; i<4; i++){
+			arrList.get(r).dir = i;
+			dfs(r+1);
 		}
 		
 	}
 
-	static void start(ArrayList<CCTV> arrList, int i, int N){
+	static void start(){
 		ArrayList<CCTV> copyList = new ArrayList<>();;
 		int[][] tempMap;
 
@@ -105,15 +102,11 @@ class Main {
 			copyList.add(new CCTV(arrList.get(j)));
 		}
 		
-		for(int k=0; k<4; k++){
-			tempMap = deepCopy(map);
-			for(int j=0; j<N; j++){
-				surveillance(tempMap, copyList.get(j));
-			}
-			calCulate(tempMap);
-
-			copyList.get(i).dir += 1;
+		tempMap = deepCopy(map);
+		for(int j=0; j<cctvNum; j++){
+			surveillance(tempMap, copyList.get(j));
 		}
+		sumList.add(calCulate(tempMap));
 	}
 	
 	static int[][] deepCopy(int[][] original2){
@@ -127,7 +120,7 @@ class Main {
 		return result;
 	}
 
-	static void calCulate(int[][] map){
+	static int calCulate(int[][] map){
 		int sum=0;
 		for(int i=0; i<height; i++){
 			for(int j=0; j<width; j++){
@@ -136,7 +129,7 @@ class Main {
 			}
 		}
 
-		sumList.add(sum);
+		return sum;
 	}
 
 	static void surveillance(int[][] map, CCTV cctv){
@@ -189,7 +182,7 @@ class Main {
 				break;
 			case 1:
 				surveillanceNorth(map, cctv);
-				surveillance1South(map, cctv);
+				surveillanceSouth(map, cctv);
 		}
 	}
 
@@ -205,10 +198,10 @@ class Main {
 				break;
 			case 1:
 				surveillanceEast(map, cctv);
-				surveillance1South(map, cctv);
+				surveillanceSouth(map, cctv);
 				break;
 			case 2:
-				surveillanceNorth(map,cctv);
+				surveillanceSouth(map,cctv);
 				surveillanceWest(map, cctv);
 				break;
 			case 3:
@@ -217,12 +210,40 @@ class Main {
 		}
 	}
 
+	// 0: 동, 서, 북
+	// 1: 동, 남, 북
+	// 2: 동, 서, 남
+	// 3: 서, 남, 북
 	static void surveillance4(int[][] map, CCTV cctv){
+		switch(cctv.dir){
+			case 0:
+				surveillanceEast(map, cctv);
+				surveillanceWest(map, cctv);
+				surveillanceNorth(map, cctv);
+				break;
+			case 1:
+				surveillanceEast(map, cctv);
+				surveillanceSouth(map, cctv);
+				surveillanceNorth(map, cctv);
+				break;
+			case 2:
+				surveillanceEast(map, cctv);
+				surveillanceWest(map, cctv);
+				surveillanceSouth(map, cctv);
+				break;
+			case 3:
+				surveillanceWest(map, cctv);
+				surveillanceSouth(map, cctv);
+				surveillanceNorth(map, cctv);
 
+		}
 	}
 
 	static void surveillance5(int[][] map, CCTV cctv){
-
+		surveillanceEast(map, cctv);
+		surveillanceWest(map, cctv);
+		surveillanceSouth(map, cctv);
+		surveillanceNorth(map, cctv);
 	}
 
 	static boolean isWall(int i){
