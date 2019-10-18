@@ -30,8 +30,9 @@ class Dragon{
 class Main {
 	static ArrayList<Dragon> dragons;
 	static int[][] map;
-	static int height = 10;
-	static int width = 10;
+	static int height = 101;
+	static int width = 101;
+	
 
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -40,7 +41,7 @@ class Main {
 		int dragonNum = Integer.parseInt(input);
 		
 		dragons = new ArrayList<>();
-		map = new int[10][10];
+		map = new int[height][width];
 
 		for(int i=0; i<dragonNum; i++){
 			String input2 = br.readLine();
@@ -62,8 +63,24 @@ class Main {
 			initDragon(dragons.get(i));
 			MakeDragonCurve(dragons.get(i));
 		}
+
+		System.out.println(getBoxNum());
 	}
 
+	// 00 01 10 11
+	// 01 02 11 12
+	static int getBoxNum(){
+		int count = 0;
+		for(int i=0; i<height-1; i++){
+			for(int j=0; j<width-1; j++){
+				if(map[i][j] == 1 && map[i][j+1] == 1 && map[i+1][j] == 1 && map[i+1][j+1] == 1){
+					count++;
+				}
+			}
+		}
+
+		return count;
+	}
 
 	static void initDragon(Dragon dragon){
 		Point pnt = dragon.pnts.get(0);
@@ -121,7 +138,6 @@ class Main {
 		// gen번 회전 -> gen세대
 		for(int i=0; i<dragon.gen; i++){
 			rotate(dragon);
-			System.out.println();
 		}
 	}
 
@@ -150,7 +166,6 @@ class Main {
 			dragon.pnts.get(i).y += endPoint.y;
 		}
 		paint(dragon);
-		printMap();
 	}
 
 	static void rotate90(Dragon dragon){
@@ -169,15 +184,6 @@ class Main {
 
 		for(int i=0; i<arrList.size(); i++){
 			map[arrList.get(i).y][arrList.get(i).x] = 1;
-		}
-	}
-
-	static void printMap(){
-		for(int i=0; i<height; i++){
-			for(int j=0; j<width; j++){
-				System.out.print(map[i][j] + " ");
-			}
-			System.out.println();
 		}
 	}
 }
