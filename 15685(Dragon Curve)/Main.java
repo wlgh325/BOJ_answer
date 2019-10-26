@@ -104,36 +104,6 @@ class Main {
 		}
 	}
 
-	static double getDistance(Point firstPoint, Point pnt){
-		int x = firstPoint.x - pnt.x;
-		int y= firstPoint.y - pnt.y;
-
-		double temp = Math.pow(x,2);
-		double temp2 = Math.pow(y,2);
-
-		double temp3 = Math.sqrt(temp + temp2);
-		return temp3;
-	}
-
-	static Point findFarPoint(Dragon dragon){
-		ArrayList<Point> temp = dragon.pnts;
-		Point firstPoint = temp.get(0);
-
-		double max=0;
-		Point endPoint = null;
-
-		for(int i=1; i<temp.size(); i++){
-			Point pnt = temp.get(i);
-			double diff = getDistance(firstPoint, pnt);
-			if(max < diff){
-				max = diff;
-				endPoint = new Point(pnt.x, pnt.y);
-			}
-		}
-
-		return endPoint;		
-	}
-
 	static void MakeDragonCurve(Dragon dragon){
 		// gen번 회전 -> gen세대
 		for(int i=0; i<dragon.gen; i++){
