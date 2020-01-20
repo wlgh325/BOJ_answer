@@ -1,10 +1,7 @@
-package exam;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.OutputStreamWriter;
 import java.util.Stack;
@@ -27,7 +24,7 @@ class Main {
 	
 	static int inputIdx;
 	static int memIdx;
-	static String[] mem;
+	static int[] mem;
 
 	static String text;
 	static String program;
@@ -93,10 +90,10 @@ class Main {
 
 			switch(command){
 				case '-':
-					mem[memIdx] = String.valueOf(Integer.parseInt(mem[memIdx]) - 1);
+					mem[memIdx] = ( mem[memIdx] - 1 ) % 256;
 					break;
 				case '+':
-					mem[memIdx] = String.valueOf(Integer.parseInt(mem[memIdx]) + 1);
+					mem[memIdx] = ( mem[memIdx] + 1 ) % 256;
 					break;
 				case '<':
 					if(memIdx == 0)
@@ -111,27 +108,29 @@ class Main {
 						memIdx++;
 					break;
 				case '[':
-					if(mem[memIdx].equals("0")){
+					
+					if(mem[memIdx] == 0){
 						idx = pairs[idx--].right;
+						loopCount++;
 					}
 					break;
 				case ']':
-					if(!mem[memIdx].equals("0")){
+					if(mem[memIdx] != 0){
 						idx = pairs[idx--].left;
+						loopCount++;
 					}
 					break;
 				case '.':
 					break;
 				case ',':
 					if(inputIdx == input_size)
-						mem[memIdx] = String.valueOf(255);
+						mem[memIdx] = 255;
 					else
-						mem[memIdx] = String.valueOf((int)text.charAt(inputIdx++));
-					
+						mem[memIdx] = (int)text.charAt(inputIdx++);
 			}
+			
 			idx++;
 			loopCount++;
-
 			// loop문 도는 경우 갇힌 loop문 판단을 위한 index
 			if(idx > max_index)
 				max_index = idx;
@@ -154,10 +153,10 @@ class Main {
 		loopCount = 0;
 
 		stack = new Stack<>();
-		pairs = new Pair[4000];
+		pairs = new Pair[4096];
 
-		mem = new String[10000001];
-		Arrays.fill(mem, "0");
+		mem = new int[100001];
+		Arrays.fill(mem, 0);
 	}
 }
 
