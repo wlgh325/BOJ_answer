@@ -1,6 +1,0 @@
-hello second.txt!
-
-update second.txt in local
-
-hello second.txt
-uptdate second.txt!!
