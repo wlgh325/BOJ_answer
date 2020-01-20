@@ -7,10 +7,14 @@ class Main {
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		boolean[] visited;
-		String input = br.readLine();
-		N = Integer.parseInt(input);
+		
+		int n=3;
+		double mid = Math.pow(n,2);
 
-
+		mid -=1;
+		System.out.println(mid);
+		
+		
 	}
 
 }
