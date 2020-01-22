@@ -15,7 +15,7 @@ class Main {
 
 		n = Integer.parseInt(br.readLine());
         arr = new int[n+1];
-		
+
 		int sum = fibo(n-1);
 		
 		bw.write(String.valueOf(sum));
