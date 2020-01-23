@@ -5,8 +5,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 class Main {
-	static int mod = 1000000;
-	static int p = (mod/10) * 15;
+	static int divisor = 1000000;
+	static int p = (divisor/10) * 15;
 
 	static int[] arr;
 	public static void main(String[] args) throws IOException{
@@ -15,16 +15,15 @@ class Main {
 
 		long n = Long.parseLong(br.readLine());
 
-		arr = new int[p];
+		arr = new int[p+1];
 		arr[0] = 0;
 		arr[1] = 1;
 
 		for(int i=2; i<p; i++){
-			arr[i] = arr[i-1] + arr[i-2];
-			arr[i] %= mod;
+			arr[i] = (arr[i-1] + arr[i-2] ) % divisor;
 		}
-
-		int result = arr[(int)n%p];
+		int idx = (int)(n%p);
+		int result = arr[idx];
 		bw.write(String.valueOf(result));
 		
 		bw.flush();
