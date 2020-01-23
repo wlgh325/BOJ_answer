@@ -36,7 +36,7 @@ f(n) % mod 3 | 1 1 2 3 1 0 1  1  2  3
 그래서 11이 연속해서 나올때 까지 반복문을 돌면서 개수를 세면 끝!!
 아래의 수학적 특성을 아신다면 더 쉽게 풀 수 있습니다
 ```
-> (last1 + last2)mod m = (last1 mod m + last2 mod m ) mod m
+> (a + b)mod m = (a mod m + b mod m ) mod m
 
 
 ```
