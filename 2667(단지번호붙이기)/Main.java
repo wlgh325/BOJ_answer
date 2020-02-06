@@ -18,27 +18,40 @@ class Node{
 
 class Main{
 	static ArrayList<Integer> list;
-	static int width, height;
+	static int N;
 	static int[][] map;
 	public static void main(String args[]) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         
-		height = Integer.parseInt(br.readLine());
-		width = Integer.parseInt(br.readLine());
-		map = new int[width][height];
 		
-		// map 만들기
-		for(int i=0; i<height; i++) {
-			String[] temp = br.readLine().split(" ");
-			for(int j=0; j<width; j++){
+		// 1: 집이 있는 곳
+		// 0: 집이 없는 곳
+		N = Integer.parseInt(br.readLine());
+		map = new int[N][N];
+		list = new ArrayList<>();
+		for(int i=0; i<N; i++) {
+			String[] temp = br.readLine().split("");
+			for(int j=0; j<N; j++){
 				map[i][j] = Integer.parseInt(temp[j]);
 			}
 		}
         
+		for(int i=0; i<N; i++) {
+			for(int j=0; j<N; j++) {
+				if(map[i][j] == 1) {
+					list.add(dfs(i,j));
+				}
+			}
+		}
 		
-		// 모두 녹아서 없어지는데 걸리는 시간
-		// 모두 녹기 한 시간 전 치즈의 개수
+		Collections.sort(list);
+		bw.write("" + list.size());
+		bw.newLine();
+		for(int i=0; i<list.size(); i++) {
+			bw.write("" + list.get(i));
+			bw.newLine();
+		}
 		
         bw.flush();
         bw.close();
