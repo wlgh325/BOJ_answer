@@ -11,7 +11,7 @@ class Main{
 	static int[][] arr;
 	static int rr;
 	static ArrayList<Integer> result_list;
-	
+	static boolean[] visited;
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -20,7 +20,7 @@ class Main{
 		arr = new int[n][n];
 		result_list = new ArrayList<>();
 		
-		boolean[] visited = new boolean[n];
+		visited = new boolean[n];
 		
 		// (i,j, stat) -> i와 j와 같은 팀일때 능력치 stat만큼 가짐
 		for(int i=0; i<n; i++) {
@@ -30,28 +30,27 @@ class Main{
 			}
 		}
 		
-		comb(visited, 0, n, n/2);
-		Collections.sort(result_list);
+		comb(0, n, n/2);
 		
-		bw.write(String.valueOf(result_list.get(0)));
+		bw.write(Collections.min(result_list) + "");
 		bw.flush();
 		br.close();
 		bw.close();
 	}
 	
-	public static void comb(boolean[] visited, int start, int n, int r) {
+	public static void comb(int start, int n, int r) {
 		if(r==0) {
-			solve(visited);
+			solve();
 			return;
 		}
 		for(int i=start; i<n; i++) {
 			visited[i] = true;
-			comb(visited, i+1, n, r-1);
+			comb(i+1, n, r-1);
 			visited[i] = false;
 		}
 	}
 
-	public static void solve(boolean[] visited) {
+	public static void solve() {
 		int start = 0;
 		int link = 0;
 		
