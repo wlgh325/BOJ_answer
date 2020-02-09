@@ -23,8 +23,9 @@ class Main{
 	static int height, width;
 	static ArrayList<Pos> emptyList;
 	static ArrayList<Integer> resultList;
-	static boolean[] visited;
 	static ArrayList<Pos> virusList;
+	static int[][] map2;
+	static int max = 0;
 
 	public static void main(String args[]) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -45,18 +46,12 @@ class Main{
 			for(int j=0; j<width; j++){
 				int n = Integer.parseInt(st.nextToken());
 				map[i][j] = n;
-				if(n == 0)
-					emptyList.add(new Pos(i,j));
-				else if(n == 2)
+				if(n == 2)
 					virusList.add(new Pos(i,j));
 			}			
 		}
 		
-		int emptySize = emptyList.size();
-		visited = new boolean[emptySize];
-
-		// emptyList.size() 중에 3개 뽑는 조합
-		comb(0, emptySize, 3);
+		comb(0, 3);
 		
 		bw.write("" + Collections.max(resultList));
         bw.flush();
@@ -64,46 +59,37 @@ class Main{
         br.close();
 	}
 
-	public static void comb(int start, int n, int r){
+	public static void comb(int start, int r){
 		if(r==0){
-			solve(n);
+			solve();
 			return;
 		}
-
-		for(int i=start; i<n; i++){
-			visited[i] = true;
-			comb(i+1, n, r-1);
-			visited[i] = false;
-		}		
+		
+		for(int i=start; i<width*height; i++){
+			int x = i/width;
+			int y = i%width;
+			if(map[x][y] == 0) {
+				map[x][y] = 1;
+				comb(i+1, r-1);
+				map[x][y] = 0;	
+			}
+		}
 	}
 
-	public static void solve(int n){
-		// 벽 3개 세우기
-		int[][] map2 = deepCopy(map);
-		int num = 0;
-		for(int i=0; i<n; i++){
-			if(visited[i]){
-				Pos pos = emptyList.get(i);
-				map2[pos.a][pos.b]= 1;
-				num++;
-			}
-
-			if(num == 3)
-				break;
-		}
+	public static void solve(){
+		map2 = deepCopy(map);
 
 		// spread Virus
-		for(int i=0; i<virusList.size(); i++){
-			Pos pos = virusList.get(i);
+		for(Pos pos: virusList){
 			int x = pos.a;
 			int y = pos.b;
 
-			dfs(map2, x,y);
+			dfs(x,y);
 		}
-		resultList.add(calSafetyArea(map2));
+		max = Math.max(max, calSafetyArea());
 	}
 
-	public static void dfs(int[][] map2, int x, int y){
+	public static void dfs(int x, int y){
 		// 위, 아래, 왼쪽, 오른쪽
 		int[] xdir = {-1,1,0,0};
 		int[] ydir = {0,0,-1,1};
@@ -140,12 +126,12 @@ class Main{
 		return result;
 	}
 
-	public static int calSafetyArea(int[][] map){
+	public static int calSafetyArea(){
 		int area = 0;
 
 		for(int i=0; i<height; i++){
 			for(int j=0; j<width; j++){
-				if(map[i][j] == 0)
+				if(map2[i][j] == 0)
 					area++;
 			}
 		}
