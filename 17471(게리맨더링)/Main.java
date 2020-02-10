@@ -3,48 +3,42 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
-import java.util.StringTokenizer;
 
 class Main{
 	static int n;
-	static int[] areaNum;
-	static int[][] graph;
-	static boolean[] visited;
-	static int min = 9999;
+	static int[] people;
+	static int min = Integer.MAX_VALUE;
+	static int[][] adj;
+	static boolean[] team;
 
 	public static void main(String args[]) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		n = Integer.parseInt(st.nextToken());
-		areaNum = new int[n];
-		st = new StringTokenizer(br.readLine());
-		graph = new int[n][11];
-
-		for(int i=0; i<n; i++)
-			areaNum[i] = Integer.parseInt(st.nextToken());
+		n = Integer.parseInt(br.readLine());
+		people = new int[n+1];
+		team = new boolean[n+1];
+		
+		String[] temp = br.readLine().split(" ");
+		for(int i=1; i<=n; i++)
+			people[i] = Integer.parseInt(temp[i-1]);
 	
-		for(int i=0; i<n; i++){
-			st = new StringTokenizer(br.readLine());
-			int num = Integer.parseInt(st.nextToken());
-			graph[i][0] = num;
-			for(int j=1; j<=num; j++)
-				graph[i][j] = Integer.parseInt(st.nextToken()) - 1;
+		
+		adj = new int[n+1][n+1];
+		for(int i=1; i<=n; i++){			
+			String[] temp2 = br.readLine().split(" ");
+			for(int j=1; j<temp2.length; j++){
+				adj[i][Integer.parseInt(temp2[j])] = 1;
+				adj[Integer.parseInt(temp2[j])][i] = 1;
+			}
 		}
 		
-		// 1 ~ n-1개를 선택한 경우 모든 조합 찾기
-		for(int i=1; i<n; i++){
-			visited = new boolean[n];
-			comb(0, i);
+		for(int i=1; i<=n/2; i++){
+			comb(1,i);
 		}
-		
-		if(min == 9999)
+
+		if(min == Integer.MAX_VALUE)
 			bw.write("-1");
 		else
 			bw.write("" + min);
@@ -60,76 +54,71 @@ class Main{
 			return;
 		}
 		
-		for(int i=start; i<n; i++){
-			visited[i] = true;
+		for(int i=start; i<=n; i++){
+			team[i] = true;
 			comb(i+1, r-1);
-			visited[i] = false;
+			team[i] = false;
 		}
 	}
 
-	public static void bfs(){
-		Queue<Integer> aArea = new LinkedList<>();
-		Queue<Integer> bArea = new LinkedList<>();
-		int[] check = new int[n];
-
-		// 선거구 나누기
-		for(int i=0; i<n; i++){
-			if(visited[i]){
-				aArea.offer(i);
-				check[i] = 1;
-			}
-			else{
-				bArea.offer(i);
-				check[i] = 2;
-			}
+	public static void solve(){
+		if(isConnected(true) && isConnected(false)){
+			min = Math.min(min, Math.abs(getNumArea(true) - getNumArea(false)));
 		}
-
-		int num = 0;
-		// a 선거구 연결 확인
-		while(!aArea.isEmpty()){
-			int a = aArea.poll();
-
-			// 연결된 곳 순회
-			for(int i=1; i<=graph[a][0]; i++){
-				if(check[graph[a][i]] == 1){
-					num++;
-				}
-			}
-		}
-
-		// b 선거구 연결 확인
-		boolean[] visited2 = new boolean[bArea.size()];
-		while(!q.isEmpty()){
-			int b = q
-			visited[a] = true;
-			for(int i=1; i<=graph[a][0]; i++){
-				int b = graph[a][i];
-				bfs(q, b, visited);
-			}
-		}
-
-		if(isConnected(visited) && isConnected(visited2))
-			min = Math.min(min, Math.abs(getNumArea(aArea) - getNumArea(bArea)));
-
 		
 	}
 
-	public static boolean isConnected(boolean[] visited){
+	public static boolean isConnected(boolean flag){
 		boolean result = true;
-		
-		// 방문되지 않은 곳이 있다면 연결되지 않음
-		for(int i=0; i<visited.length; i++)
+		boolean[] visited = new boolean[n+1];
+		Stack<Integer> stack = new Stack<>();
+
+		for(int i=1; i<=n; i++){
+			if(team[i] == flag){
+				stack.push(i);
+				visited[i] = true;
+				break;
+			}
+		}
+
+		// 탐색
+		while(!stack.isEmpty()){
+			int a = stack.pop();
+			for(int i=1; i<=n; i++){
+				// 방문했으면
+				if(visited[i])
+					continue;
+				// team이 아니면
+				if(team[i] != flag)
+					continue;
+				// 연결이 안되어 있으면
+				if(adj[a][i] == 0)
+					continue;
+
+				stack.push(i);
+				visited[i] = true;
+			}
+		}
+
+		for(int i=1; i<=n; i++){
+			// 팀이 아니면
+			if(team[i] != flag)
+				continue;
+			// 같은 팀인데 방문을 안했으면
 			if(!visited[i])
-				result = false;
+				return false;
+		}
 
 		return result;
 	}
 
-	public static int getNumArea(ArrayList<Integer> area){
+	public static int getNumArea(boolean flag){
 		int sum = 0;
 
-		for(Integer a: area)
-			sum += areaNum[a];
+		for(int i=1; i<=n; i++){
+			if(team[i] == flag)
+				sum += people[i];
+		}
 
 		return sum;
 	}
