@@ -3,83 +3,83 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
-class Counseling{
+class Consult{
 	int t;
 	int p;
 	
-	Counseling(int t, int p){
+	Consult(int t, int p){
 		this.t = t;
 		this.p = p;
 	}
 }
 
-class Main{	
-	static Counseling[] arr;
-	static Set<Integer> set;
-	
-	public static void main(String[] args) throws IOException{
+public class Main {
+	static int n;
+	static Consult[] consult;
+	static boolean[] visited;
+	static int max = 0;
+	static int rr=0;
+	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
-		int n = Integer.parseInt(br.readLine());
-		boolean[] visited = new boolean[n];
-		
-		set = new HashSet<>();
-		arr = new Counseling[n];
-		
-		// 상담 일정표 받기
-		for(int i=0; i<n; i++) {
-			String[] temp = br.readLine().split(" ");
-			arr[i] =  new Counseling(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
-		}
-		
+		n = Integer.parseInt(br.readLine());
+		consult = new Consult[n+1];
 		for(int i=1; i<=n; i++) {
-			comb(visited, 0, n, i, i);
+			String[] temp = br.readLine().split(" ");
+			int t = Integer.parseInt(temp[0]);
+			int p = Integer.parseInt(temp[1]);
+			Consult c = new Consult(t, p);
+			consult[i] = c;
 		}
-		Object[] arr = set.toArray();
-		Arrays.sort(arr);
 		
-		bw.write(String.valueOf(arr[arr.length-1]));
+		// 1개 ~ N개 까지 고를
+		for(int i=1; i<=n; i++) {
+			visited = new boolean[n+1];
+			rr = i;
+			comb(1, i);
+		}
+		bw.write("" + max);
 		bw.flush();
 		br.close();
 		bw.close();
 	}
 	
-	public static void comb(boolean[] visited, int start, int n, int r, int cnt) {
+	public static void comb(int start, int r) {
 		if(r==0) {
-			solve(visited, n, cnt);
+			solve();
 			return;
 		}
-		for(int i=start; i<n; i++) {
+		
+		for(int i=start; i<=n; i++) {
 			visited[i] = true;
-			comb(visited, i+1, n, r-1, cnt);
+			comb(i+1, r-1);
 			visited[i] = false;
 		}
 	}
 	
-	public static void solve(boolean[] visited, int n, int r) {
-		int sum = 0;
-		int cnt = 0;
+	public static void solve() {
+		int pay = 0;
+		int num = 0;
 		
-		for(int i=0; i<n; i++) {
+		for(int i=1; i<=n; i++) {
 			if(visited[i]) {
-				if(arr[i].t + i > n)
+				int temp = i;
+				// 상담을 하면 참조할 날짜를 증가시킨다.
+				i += consult[i].t - 1;
+				
+				// 상담을 마쳤는데 n일이 넘으면 break하고 pay에 추가하지 않는다.
+				if(i > n)
 					break;
-				else {
-					sum += arr[i].p;
-					i += arr[i].t;
-					i--;
-				}
-				cnt++;
+				
+				pay += consult[temp].p;
+				num++;
 			}
-			
-			if(r == cnt) break;
+			if(num == rr)
+				break;
 		}
 		
-		set.add(sum);
+		max = Math.max(pay, max);
 	}
 }
