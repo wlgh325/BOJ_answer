@@ -3,41 +3,32 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Main {
     public static void main(String[] args) throws NumberFormatException, IOException {
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     	BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     	
-    	String str = br.readLine();
-    	String result = "";
+    	int n = Integer.parseInt(br.readLine());
     	
-    	String[] temp = str.split("<");
-    	
-    	int i;
-    	if(str.charAt(0) == '<') {
-    		i = 1;
-    		result += "<";
-    	}
-    	else
-    		i = 0;
-    	
-    	for(;i<temp.length; i++) {
-    		int idx = temp[i].indexOf(">");
-    		result += temp[i].substring(0, idx+1);
-    		
-    		String[] temp2 = temp[i].substring(idx+1, temp[i].length()).split(" ");
-    		for(int j=0; j<temp2.length; j++) {
-    			result += (new StringBuilder(temp2[j])).reverse().toString();
-    			if(j != temp2.length-1)
-    				result += " ";
+    	int sum = 1;
+    	HashSet<Integer> set = new HashSet<>();
+    	for(int j=2; j<=n; j++) {
+    		for(int i=1; i<j; i++) {
+    			if(j % i == 0) {
+    				set.add(i);
+    				set.add(j/i);
+    			}
     		}
-    		
-    		if(i != temp.length - 1)
-    			result += "<";
+    		if(set.size() % 2 == 0)
+    			sum += set.size() / 2;
+    		else
+    			sum += set.size()/2 + 1;
+    		set.clear();
     	}
-    	bw.write("" + result);
+    	
+    	bw.write("" + sum);
     	bw.flush();
     	br.close();
     	bw.close();
