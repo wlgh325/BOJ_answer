@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 class Main {	
 	static ArrayList<ArrayList<Integer>> list;
-	static ArrayList<ArrayList<Integer>> after;
+    static ArrayList<ArrayList<Integer>> after;
+    static ArrayList<ArrayList<Integer>> backup;
     static int n;
 	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 	static int max = 0;
@@ -18,15 +19,18 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
 		n = Integer.parseInt(br.readLine());
-		t = new int[R];
+		t = new int[4];
 
-		list = initList();
+        list = initList();
+        backup = initList();
+        
 		for(int i=0; i<n; i++){
 			String[] temp2 = br.readLine().split(" ");
 			for(int j=0; j<n; j++)
-				list.get(i).add(Integer.parseInt(temp2[j]));
-			
-		}
+				list.get(i).add(Integer.parseInt(temp2[j]));	
+        }
+                
+        backup = deepCopy(list);
 		perm(0);
 		System.out.println(max);
 		br.close();
@@ -36,9 +40,9 @@ class Main {
 		if(k == 4){
 			// 0:left, 1: right, 2: up, 3: down
 			for(int i=0; i<4; i++){
-				move(t[i]);
-				
-				if(isSame()){	
+                move(t[i]);
+				if(isSame()){
+                    list = deepCopy(backup);
 					return;
 				}
 				else
@@ -48,10 +52,11 @@ class Main {
 			ArrayList<ArrayList<Integer>> temp = initList();
 			temp = list;
 			for(int i=0; i<4; i++){
-				move(i);
+                move(i);
 				after = list;
-				list = temp;
-			}
+                list = temp;
+            }
+            list = deepCopy(backup);
 			return;
 		}
 		else{
@@ -109,7 +114,9 @@ class Main {
                 j = idx;
             }
 
-			max = list.get(i).get(j) > max ? list.get(i).get(j) : max;
+            if(list.get(i).size() != 0)
+                max = list.get(i).get(j) > max ? list.get(i).get(j) : max;
+                
             // 길이가 n이 될때까지 0을 왼쪽에 채움
             while(list.get(i).size() != n)
                 list.get(i).add(0);
@@ -146,7 +153,8 @@ class Main {
                 j = idx;
             }
 
-			max = list.get(i).get(j) > max ? list.get(i).get(j) : max;
+            if(list.get(i).size() != 0)
+			    max = list.get(i).get(j) > max ? list.get(i).get(j) : max;
             // 길이가 n이 될때까지 0을 왼쪽에 채움
             while(list.get(i).size() != n)
                 list.get(i).add(0,0);
@@ -208,5 +216,5 @@ class Main {
 			return true;
 		else
 			return false;
-	}
+    }
 }
