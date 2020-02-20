@@ -9,6 +9,9 @@ class Main{
 	static int n,m;
 	static int arr[][];
 	static int min = Integer.MAX_VALUE;
+	// -1: 왼쪽 아래
+	// 0: 아래
+	// 1: 오른쪽 아래 방향
 	static int[] ydir = {-1, 0, 1};
 	static int[] visited;
 	
