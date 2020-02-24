@@ -3,7 +3,7 @@
 - 백준 온라인 저지(BOJ) 2573번 빙산 문제 자바 풀이
 - [백준 2573번 빙산](https://www.acmicpc.net/problem/2573)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/94?category=780777)
 
 # 문제정리
 1. 빙산은 양의 정수, 그 외 바다는 0

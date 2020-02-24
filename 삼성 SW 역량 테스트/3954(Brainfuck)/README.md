@@ -2,8 +2,7 @@
 - 백준 온라인 저지(BOJ) 3954번 Brainfuck 자바 풀이
 - https://www.acmicpc.net/problem/3954
 
-## 티스토리 주소
-- https://hoho325.tistory.com/
+## [티스토리](https://hoho325.tistory.com/74?category=780777)
 
 ## 문제 풀이
 이 문제는 주어진 사항을 그대로 구현하는 문제입니다

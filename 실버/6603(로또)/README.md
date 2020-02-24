@@ -2,7 +2,7 @@
 - 백준 온라인 저지(BOJ) 6603 로또 자바 풀이
 - [백준6603번 로또](https://www.acmicpc.net/problem/6603)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/83?category=780777)
 
 
 ## 문제풀이

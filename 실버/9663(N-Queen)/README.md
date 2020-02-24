@@ -3,7 +3,7 @@
 - 백준 온라인 저지(BOJ) 9663번 N-Queen 문제 자바 풀이
 - [백준 9663번 N-Queen](https://www.acmicpc.net/problem/9663)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/91?category=780777)
 
 # 문제이해
 ```

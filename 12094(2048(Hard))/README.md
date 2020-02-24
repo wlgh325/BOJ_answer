@@ -3,7 +3,7 @@
 - 백준 온라인 저지(BOJ) 12094번 2048(Hard) 문제 자바 풀이
 - [백준 12094번 2048(Hard)](https://www.acmicpc.net/problem/12094)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/97?category=780777)
 
 # 문제정리
 이는 2048 게임을 직접 해보는 것이 더 빠르게 이해할 수 있을 것 같다.  

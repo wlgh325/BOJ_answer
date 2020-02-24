@@ -3,7 +3,7 @@
 - 백준 온라인 저지(BOJ) 6568번 귀도 반 로썸은 크리스마스날 심심하다고 파이썬을 만들었다 문제 자바 풀이
 - [백준 6568번 거울 설치](https://www.acmicpc.net/problem/6568)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/82?category=780777)
 
 # 문제정리
 1. 각 명령어의 길이는 1바이트

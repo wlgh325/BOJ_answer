@@ -3,7 +3,7 @@
 - 백준 온라인 저지(BOJ) 2636번 치즈 문제 자바 풀이
 - [백준 2636번 치즈](https://www.acmicpc.net/problem/2636)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/84?category=780777)
 
 # 문제정리
 1. 이 문제에서 주어진 정사각형 칸은 크게 세가지 영역으로 나뉨을 이해한다.

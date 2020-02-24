@@ -3,7 +3,7 @@
 - 백준 온라인 저지(BOJ) 1260 DFS BFS 문제 자바 풀이
 - [백준 1260 DFS BFS 문제](https://www.acmicpc.net/problem/1260)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/102?category=780777)
 
 # 문제정리
 ```

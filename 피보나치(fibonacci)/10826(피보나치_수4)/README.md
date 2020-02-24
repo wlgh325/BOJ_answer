@@ -3,7 +3,7 @@
 - [피보나치 수4](https://www.acmicpc.net/problem/10826)
 
 ## 티스토리 
-[티스토리 주소](https://hoho325.tistory.com/72)
+[티스토리](https://hoho325.tistory.com/72?category=780777)
 
 
 ## 문제 풀이

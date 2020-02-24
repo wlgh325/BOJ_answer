@@ -3,7 +3,7 @@
 - 백준 온라인 저지(BOJ) 2589번 보물섬 문제 자바 풀이
 - [백준 2589번 보물섬](https://www.acmicpc.net/problem/2589)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/85?category=780777)
 
 # 문제정리
 1. 각 칸은 육지(L)나 바다(W)로 나뉘어져 있다.

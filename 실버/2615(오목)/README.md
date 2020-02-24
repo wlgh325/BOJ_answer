@@ -3,7 +3,7 @@
 - 백준 온라인 저지(BOJ) 2615번 오목 문제 자바 풀이
 - [백준 2615 오목](https://www.acmicpc.net/problem/2615)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/90?category=780777)
 
 # 문제정리
 1. 알이 연속으로 5개 이상 놓여있으면 이기게 된다(가로, 세로, 대각선 모두)

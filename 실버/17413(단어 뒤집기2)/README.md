@@ -3,7 +3,7 @@
 - 백준 온라인 저지(BOJ) 17413번 단어 뒤집기2 문제 자바 풀이
 - [백준 17413번 단어 뒤집기2](https://www.acmicpc.net/problem/17413)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/93?category=780777)
 
 # 문제정리
 1. 문자열은 단어와 태그로 이루어져 있다.

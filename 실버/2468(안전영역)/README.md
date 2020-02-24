@@ -3,7 +3,7 @@
 - 백준 온라인 저지(BOJ) 2468번 안전영역 문제 자바 풀이
 - [백준 2468번 안전영역](https://www.acmicpc.net/problem/2468)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/98?category=780777)
 
 # 문제정리
 1. 지역 마다 높이 정보가 주어진다.

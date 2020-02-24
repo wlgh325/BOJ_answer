@@ -3,7 +3,7 @@
 - 백준 온라인 저지(BOJ) 2178 미로 탐색 문제 자바 풀이
 - [백준 2178 미로 탐색 문제](https://www.acmicpc.net/problem/2178)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/101?category=780777)
 
 # 문제정리
 1. '1'은 이동할 수 있고 '0'은 이동할 수 없는 칸이다.

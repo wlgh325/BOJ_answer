@@ -3,7 +3,7 @@
 - 백준 온라인 저지(BOJ) 17484번 진우의 달 여행(Small) 문제 자바 풀이
 - [백준 17484번 진우의 달 여행(Small)](https://www.acmicpc.net/problem/17484)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/100?category=780777)
 
 # 문제정리
 1. 지구와 우주 사이는 NxM 행렬로 나타낼 수 있다.

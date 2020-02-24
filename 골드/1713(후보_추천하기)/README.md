@@ -3,7 +3,7 @@
 - 백준 온라인 저지(BOJ) 1713번 후보 추천하기 문제 자바 풀이
 - [백준 1713번 후보 추천하기](https://www.acmicpc.net/problem/1713)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/81?category=780777)
 
 # 문제정리
 1. 특정 학생을 추천 하면 반드시 사진 틀에 걸린다.

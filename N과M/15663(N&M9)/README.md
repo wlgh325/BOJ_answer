@@ -3,7 +3,7 @@
 [백준 15663번 N과M9](https://www.acmicpc.net/problem/15663)
 
 ## 티스토리
-[백준 15663번 자바 풀이](https://hoho325.tistory.com/75)
+[백준 15663번 자바 풀이](https://hoho325.tistory.com/75?category=7807775)
 
 이 문제도 역시 다른 N과 M 문제와 많이 비슷합니다
 

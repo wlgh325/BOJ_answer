@@ -3,7 +3,7 @@
 - 백준 온라인 저지(BOJ) 11399 ATM 문제 자바 풀이
 - [백준 11399 ATM](https://www.acmicpc.net/problem/11399)
 
-## [티스토리 주소](https://hoho325.tistory.com/)
+## [티스토리 주소](https://hoho325.tistory.com/92?category=780777)
 
 # 문제정리
 1. ATM 1대 앞에 n명의 사람이 줄을 서있다(번호: 1~N)
