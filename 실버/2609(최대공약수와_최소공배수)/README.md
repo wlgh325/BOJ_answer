@@ -1,6 +1,6 @@
-# <span style="color:orange; font-size:17pt; font-weight:bold">BOJ 1018번 체스판 다시 칠하기 문제 자바(java)  풀이</span>
+# <span style="color:orange; font-size:17pt; font-weight:bold">BOJ 2609번 최소공배수와 최대공약수 자바(java)  풀이</span>
 - 랭크 : 실버5
-- [백준 1018번 체스판 다시 칠하기](https://www.acmicpc.net/problem/1018)
+- [백준 2609 최소공배수와 최대공약수](https://www.acmicpc.net/problem/2609)
 <br><br>
 
 ## [티스토리 주소](https://hoho325.tistory.com/)
