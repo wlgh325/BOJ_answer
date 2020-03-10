@@ -1,5 +1,5 @@
 # <span style="color:orange; font-size:17pt; font-weight:bold">BOJ 1018번 체스판 다시 칠하기 문제 자바(java)  풀이</span>
-- 랭크 : 골드3
+- 랭크 : 실버5
 - [백준 1018번 체스판 다시 칠하기](https://www.acmicpc.net/problem/1018)
 <br><br>
 
