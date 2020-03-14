@@ -10,7 +10,8 @@ class Main {
 		int n = Integer.parseInt(st.nextToken());
 		int k = Integer.parseInt(st.nextToken());
 		boolean[] visited = new boolean[n+1];
-
+		StringBuilder sb = new StringBuilder();
+		
 		int idx = k;
 		int flag = n;
 		System.out.print("<");

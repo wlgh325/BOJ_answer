@@ -1,9 +1,9 @@
-# <span style="color:orange; font-size:17pt; font-weight:bold">BOJ 11866번 요세푸스 문제 자바(java)  풀이</span>
+# <span style="color:orange; font-size:17pt; font-weight:bold">BOJ 11866번 요세푸스 문제0 자바(java)  풀이</span>
 - 랭크 : 실버4
 - 풀이시간: 25분
 - 메모리: 14720 KB
 - 실행시간: 140ms
-- [백준 11866번 요세푸스](https://www.acmicpc.net/problem/11866)
+- [백준 11866번 요세푸스 문제0](https://www.acmicpc.net/problem/11866)
 <br><br>
 
 ## [티스토리 주소](https://hoho325.tistory.com/)
