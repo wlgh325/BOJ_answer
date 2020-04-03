@@ -26,9 +26,17 @@ class Main {
 
 		min = Integer.MAX_VALUE;
 		cnt = 1;
-		bfs(N, K);
-		System.out.println(min);
-		System.out.println(cnt);
+		// N이 K보다 큰 경우에는 -1씩 N-K만큼 뒤로 가야 한다.
+		// 이 방법 한 가지 뿐이다.
+		if(N > K){
+			System.out.println(N-K);
+			System.out.println(1);
+		}
+		else{
+			bfs(N, K);
+			System.out.println(min);
+			System.out.println(cnt);
+		}
 	}
 
 	private static void bfs(int a, int b){
