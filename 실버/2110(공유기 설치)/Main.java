@@ -3,16 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-class Print{
-	int idx;
-	int importance;
-
-	Print(int idx, int importance){
-		this.idx = idx;
-		this.importance = importance;
-	}
-}
-
 class Main {
 	static int N, C;
 	static int[] arr;
