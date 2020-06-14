@@ -1,6 +1,6 @@
 # <span style="color:orange; font-size:17pt; font-weight:bold">BOJ 7569번 토마토 문제 자바(java)  풀이</span>
 - 난이도: 실버1
-- [백준 7569번 유기농 배추](https://www.acmicpc.net/problem/7569)
+- [백준 7569번번 토마토](https://www.acmicpc.net/problem/7569)
 <br><br>
 
 ## [티스토리 주소](https://hoho325.tistory.com/)
