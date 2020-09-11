@@ -5,62 +5,41 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 class Main {
-	static int[] arr;
+	static int N,C;
+	static int[] homepos;
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = null;
-		int n = Integer.parseInt(br.readLine());
-		
-		arr = new int[n];
-		st = new StringTokenizer(br.readLine(), " ");
-		for(int i=0; i<n; i++)
-			arr[i] = Integer.parseInt(st.nextToken());
-		
-		// binary search를 위한 오름차순 정렬
-		Arrays.sort(arr);
+		String[] temp = br.readLine();
+		N = Integer.parseInt(temp[0]);
+		C = Integer.parseInt(temp[1]);
 
-		int m = Integer.parseInt(br.readLine());
-		st = new StringTokenizer(br.readLine(), " ");
-		for(int i=0; i<m; i++) {
-			int t = Integer.parseInt(st.nextToken());
-			System.out.print((UpperBinarySearch(t) - LowerBinarySearch(t)) + " ");
-		}
-	}
-	
-	// target 이상의 수가 처음 나오는 위치를 찾는다.
-	private static int LowerBinarySearch(int target) {
-		int left = 0;
-		int right = arr.length -1;
-		int mid;
+		homepos = new int[N];
+		for(int i=0; i<N; i++)
+			homepos[i] = Integer.parseInt(br.readLine());
 		
-		// lower bound
-		while(left < right) {
-			mid = (left + right) / 2;
-			if(arr[mid] >= target) right = mid;
-			else
-				left = mid + 1;
-		}
-
-		return right;
+		Arrays.sort(homepos);
+		binSearch();
 	}
 
-	// target을 초과한 수가 처음 나오는 위치를 찾는다.
-	private static int UpperBinarySearch(int target){
-		int left = 0;
-		int right = arr.length - 1;
-		int mid;
+	public static int binSearch(){
+		int left = 1;
+		int right = homepos[homepos.length-1];
 
-		// upper bound
-		while(left < right){
-			mid = (left + right) / 2;
-			if(arr[mid] > target) right = mid;
-			else
-				left = mid + 1;
+		while(left < right -1){
+			int mid = (left + right) / 2;
+
+			// 오른쪽에 집들이 더 많으면
+			if(check()){
+				mid = left;
+			}
+			else{
+				mid = right;
+			}
 		}
+		return left;
+	}
 
-		// 찾으려는 수가 맨 끝쪽에 있는 경우 예외처리
-		if(arr[right] == target)
-			return right+1;
-		return right;
+	public static boolean check(){
+		
 	}
 }
