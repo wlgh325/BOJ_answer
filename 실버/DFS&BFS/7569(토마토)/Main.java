@@ -1,119 +1,88 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.Queue;
-import java.util.ArrayList;
+import java.util.StringTokenizer;
 
-class Pos{
-	int x;
-	int y;
-	int z;
-	int time;
-	Pos(int x, int y, int z, int time){
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.time = time;
-	}
-}
+public class Main {
+    static int M, N, H;
+    static int[][][] map;
+    static boolean[][] visited;
+    static int max;
 
-class Main {
-	static int M, N, H;
-	static int[][][] box;	//[z축][x축][y축]
-	static boolean[][][] visited;
-	static int[] xdir = {-1,1,0,0,0,0};
-	static int[] ydir = {0,0,-1,1,0,0};
-	static int[] zdir = {0,0,0,0,-1,1};
-	static ArrayList<Pos> tomatos;	// 처음 토마토 위치를 담는 list
-	static int max;
-	public static void main(String[] args) throws IOException{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String[] temp = br.readLine().split(" ");
-		M = Integer.parseInt(temp[0]);
-		N = Integer.parseInt(temp[1]);
-		H = Integer.parseInt(temp[2]);
+    // 상, 하, 좌, 우, 앞, 뒤
+    static int[] xdir = {-1, 1, 0, 0, 0, 0};
+    static int[] ydir = {0, 0, -1, 1, 0, 0};
+    static int[] zdir = {0, 0, 0, 0, -1, 1};
+    static Queue<int[]> queue = new ArrayDeque<>();
 
-		box = new int[H][N][M];
-		tomatos = new ArrayList<>();
-		for(int k=0; k<H; k++){
-			for(int i=0; i<N; i++){
-				temp = br.readLine().split(" ");
-				for(int j=0; j<M; j++){
-					box[k][i][j] = Integer.parseInt(temp[j]);
-					if(box[k][i][j] == 1){
-						tomatos.add(new Pos(i,j,k,0));
-					}
-				}
-			}
-		}
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-		max = 0;
-		visited = new boolean[H][N][M];
-		bfs();
+        M = Integer.parseInt(st.nextToken());
+        N = Integer.parseInt(st.nextToken());
+        H = Integer.parseInt(st.nextToken());
 
-		if(max == 0){
-			System.out.println(0);
-			return;
-		}
+        map = new int[N][M][H];
 
-		if(isGrow())
-			System.out.println(max);
-		else
-			System.out.println(-1);
-		br.close();
-	}
-	
-	public static void bfs(){
-		Queue<Pos> q = new LinkedList<>();
+        for (int k=0; k<H; k++) {
+            for (int i=0; i<N; i++) {
+                st = new StringTokenizer(br.readLine());
+                for (int j=0; j<M; j++) {
+                    map[i][j][k] = Integer.parseInt(st.nextToken());
+                    if (map[i][j][k] == 1) {
+                        queue.offer(new int[]{i, j, k});
+                    }
+                }
+            }
+        }
 
-		for(Pos p : tomatos){
-			int x = p.x;
-			int y = p.y;
-			int z = p.z;
-			q.offer(new Pos(x,y,z,0));
-			visited[z][x][y] = true;
-		}
-		
-		while(!q.isEmpty()){
-			Pos p = q.poll();
-			int x = p.x;
-			int y = p.y;
-			int z = p.z;
-			int time = p.time;
+        bfs();
 
-			if(max < time)
-				max = time;
+        int answer = 0;
 
-			for(int i=0; i<6; i++){
-				int dx = x + xdir[i];
-				int dy = y + ydir[i];
-				int dz = z + zdir[i];
-				if(isValidPosition(dx,dy,dz) && !visited[dz][dx][dy]){
-					if(box[dz][dx][dy] != -1){
-						box[dz][dx][dy] = 1;
-						visited[dz][dx][dy] = true;
-						q.offer(new Pos(dx,dy,dz,time+1));
-					}
-				}
-			}
-		}
-	}
+        for (int k=0; k<H; k++) {
+            for (int i=0; i<N; i++) {
+                for (int j=0; j<M; j++) {
+                    if (map[i][j][k] == 0) {
+                        System.out.println(-1);
+                        return;
+                    }
 
-	public static boolean isGrow(){
-		for(int[][] h: box){
-			for(int[] r: h){
-				for(int a: r){
-					if(a == 0)
-						return false;
-				}
-			}
-		}
-		return true;
-	}
+                    answer = Math.max(answer, map[i][j][k]);
+                }
+            }
+        }
 
-	public static boolean isValidPosition(int x, int y, int z){
-		if(x < 0 || y < 0 || z < 0 || x >= N || y >= M || z >= H) return false;
-		return true;
-	}
+        System.out.println(answer - 1);
+        br.close();
+    }
+
+    static void bfs() {
+        while(!queue.isEmpty()) {
+            int[] cur = queue.poll();
+            int x = cur[0];
+            int y = cur[1];
+            int z = cur[2];
+
+            for (int d=0; d<6; d++) {
+                int dx = x + xdir[d];
+                int dy = y + ydir[d];
+                int dz = z + zdir[d];
+
+                // 유효하면서 방문하지 않은 경우
+                if (isValidPosition(dx, dy, dz) && map[dx][dy][dz] == 0) {
+                    map[dx][dy][dz] = map[x][y][z] + 1;
+                    queue.offer(new int[]{dx, dy, dz});
+                }
+            }
+        }
+    }
+
+    static boolean isValidPosition(int x, int y, int z) {
+        if (x < 0 || x >= N || y < 0 || y >= M || z < 0 || z >= H) return false;
+        return true;
+    }
 }
