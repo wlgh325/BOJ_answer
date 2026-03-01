@@ -1,5 +1,5 @@
 # BOJ 7576번 토마토 문제 자바(java)  풀이
-- 난이도: 실버1
+- 난이도: 골드5
 - [백준 7576번 토마토](https://www.acmicpc.net/problem/7576)
 
 # [티스토리 문제 풀이](https://hoho325.tistory.com/126)
