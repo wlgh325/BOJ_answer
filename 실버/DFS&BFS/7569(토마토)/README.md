@@ -1,5 +1,5 @@
 # <span style="color:orange; font-size:17pt; font-weight:bold">BOJ 7569번 토마토 문제 자바(java)  풀이</span>
-- 난이도: 실버1
+- 난이도: 골드5
 - [백준 7569번번 토마토](https://www.acmicpc.net/problem/7569)
 <br><br>
 
