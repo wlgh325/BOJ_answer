@@ -1,121 +1,70 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.io.*;
+import java.util.*;
 
-class Pos {
-	int x;
-	int y;
-	int time;
+public class Main {
 
-	Pos(int x, int y, int time){
-		this.x = x;
-		this.y = y;
-		this.time = time;
-	}
-}
+    static int M, N;
+    static int[][] map;
+    static Queue<int[]> q = new ArrayDeque<>();
 
-class Main {
-	static int width, height;
-	static int[][] map;
-	static int max;
-	static boolean[][] visited;
-	static ArrayList<Pos> tomatos;
-	// 상,하,좌,우
-	static int[] xdir = {-1,1,0,0};
-	static int[] ydir = {0,0,-1,1};
-	public static void main(String[] args) throws IOException{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static int[] dx = {1, -1, 0, 0};
+    static int[] dy = {0, 0, 1, -1};
 
-		// 상자의 가로 세로크기 입력 받기
-		String[] temp = br.readLine().split(" ");
-		width = Integer.parseInt(temp[0]);
-		height = Integer.parseInt(temp[1]);
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-		tomatos = new ArrayList<>();
-		map = new int[height][width];
-	
-		// 상자에 담긴 토마토 정보 입력 받기
-		for(int i=0; i<height; i++){
-			temp = br.readLine().split(" ");
-			for(int j=0; j<width; j++){
-				int t = Integer.parseInt(temp[j]);
-				map[i][j] = t;
-				if(t == 1)
-					tomatos.add(new Pos(i,j,0));
-			}
-		}
+        M = Integer.parseInt(st.nextToken()); // 가로
+        N = Integer.parseInt(st.nextToken()); // 세로
 
-		max = 0;
-		visited = new boolean[height][width];
-		bfs();
+        map = new int[N][M];
 
-		// 이미 모두 익어있는 경우 max 값이 1이 된다.
-		if(max == 1){
-			System.out.println(0);
-			return;
-		}
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < M; j++) {
+                map[i][j] = Integer.parseInt(st.nextToken());
+                if (map[i][j] == 1) {
+                    q.offer(new int[]{i, j});
+                }
+            }
+        }
 
-		// 토마토가 모두 익었는지 검사
-		if(isGrow())
-			System.out.println(max);
-		else
-			System.out.println(-1);
-		br.close();
-	}
+        bfs();
 
-	private static void bfs(){
-		Queue<Pos> q = new LinkedList<>();
+        int answer = 0;
 
-		// 익은 토마토 위치 모두 queue에 넣고 시작
-		// 동시에 퍼져나가기 위해서
-		for(Pos p : tomatos){
-			int x = p.x;
-			int y = p.y;
-			q.add(new Pos(x, y, 0));
-			visited[x][y] = true;
-		}
-				
-		while(!q.isEmpty()){
-			Pos p = q.poll();
-			int x = p.x;
-			int y = p.y;
-			int t = p.time;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if (map[i][j] == 0) {   // 끝까지 못 익은 토마토
+                    System.out.println(-1);
+                    return;
+                }
+                answer = Math.max(answer, map[i][j]);
+            }
+        }
 
-			// 저장된 시간이 max보다 크다면 update
-			if(max < t)
-				max = t;
+        // 처음부터 1로 시작했으므로 -1
+        System.out.println(answer - 1);
+    }
 
-			for(int i=0; i<4; i++){
-				int dx = x + xdir[i];
-				int dy = y + ydir[i];
-				// 유효한 위치 && 방문하지 않은 곳
-				if(isValidPosition(dx, dy) && !visited[dx][dy]){
-					// 빈 곳이 아니라면 방문
-					if(map[dx][dy] != -1){
-						map[dx][dy] = 1;
-						visited[dx][dy] = true;
-						q.add(new Pos(dx, dy, t+1));
-					}
-				}
-			}
-		}
-	}
+    static void bfs() {
 
-	private static boolean isGrow(){
-		for(int[] a: map){
-			for(int num : a){
-				if(num == 0)
-					return false;
-			}
-		}
-		return true;
-	}
+        while (!q.isEmpty()) {
+            int[] cur = q.poll();
+            int x = cur[0];
+            int y = cur[1];
 
-	private static boolean isValidPosition(int x, int y){
-		if(x < 0 || x >= height || y < 0 || y >= width) return false;
-		return true;
-	}
+            for (int d = 0; d < 4; d++) {
+                int nx = x + dx[d];
+                int ny = y + dy[d];
+
+                if (nx < 0 || ny < 0 || nx >= N || ny >= M) continue;
+
+                if (map[nx][ny] == 0) {
+                    map[nx][ny] = map[x][y] + 1;
+                    q.offer(new int[]{nx, ny});
+                }
+            }
+        }
+    }
 }
